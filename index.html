@@ -15,7 +15,6 @@
             min-height: 100vh; 
             padding: 20px; 
         }
-        /* Glassmorphism & Neon Design */
         .glass-card { 
             background: rgba(16, 24, 43, 0.6); 
             backdrop-filter: blur(16px); 
@@ -27,10 +26,7 @@
             max-width: 550px; 
             box-shadow: 0 0 25px rgba(56, 189, 248, 0.2), inset 0 0 10px rgba(56, 189, 248, 0.1); 
         }
-        .header-title { 
-            text-align: center; 
-            margin-bottom: 25px; 
-        }
+        .header-title { text-align: center; margin-bottom: 25px; }
         h1 { 
             color: #38bdf8; 
             font-size: 24px; 
@@ -39,103 +35,40 @@
             text-shadow: 0 0 10px rgba(56, 189, 248, 0.7); 
         }
         .input-group { margin-bottom: 20px; }
-        
-        textarea { 
-            width: 100%; 
-            padding: 15px; 
-            border-radius: 12px; 
-            border: 1px solid #1e293b; 
-            background: rgba(15, 23, 42, 0.8); 
-            color: #fff; 
-            font-size: 15px; 
-            outline: none; 
-            resize: vertical;
-            min-height: 100px;
-            transition: all 0.3s;
-        }
-        textarea:focus { 
-            border-color: #38bdf8; 
-            box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); 
-        }
-        
-        .number-input {
+        input[type="text"], input[type="number"] {
             width: 100%;
-            padding: 12px 15px;
+            padding: 15px;
             border-radius: 12px;
             border: 1px solid #1e293b;
             background: rgba(15, 23, 42, 0.8);
             color: #fff;
-            margin-bottom: 20px;
+            font-size: 15px;
             outline: none;
             transition: all 0.3s;
         }
-        .number-input:focus {
+        input[type="text"]:focus, input[type="number"]:focus {
             border-color: #38bdf8; 
             box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); 
         }
-
-        .options-group { 
-            display: flex; 
-            gap: 15px; 
-            margin-bottom: 25px; 
-        }
+        .options-group { display: flex; gap: 15px; margin-bottom: 25px; }
         .option-label { 
-            flex: 1; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px; 
-            padding: 14px; 
-            background: rgba(15, 23, 42, 0.8); 
-            border: 1px solid #1e293b; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-size: 15px; 
-            font-weight: 500;
+            flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; 
+            padding: 14px; background: rgba(15, 23, 42, 0.8); border: 1px solid #1e293b; 
+            border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 500;
             transition: all 0.3s ease; 
         }
-        .option-label:hover { 
-            border-color: #38bdf8; 
-            background: rgba(56, 189, 248, 0.1);
-        }
+        .option-label:hover { border-color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
         .option-label input[type="radio"] { accent-color: #38bdf8; transform: scale(1.2); }
-        
         button { 
-            width: 100%; 
-            padding: 16px; 
-            background: linear-gradient(135deg, #0284c7, #38bdf8); 
-            color: #fff; 
-            border: none; 
-            border-radius: 12px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            font-size: 18px; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            width: 100%; padding: 16px; background: linear-gradient(135deg, #0284c7, #38bdf8); 
+            color: #fff; border: none; border-radius: 12px; font-weight: bold; 
+            cursor: pointer; transition: all 0.3s ease; font-size: 18px; 
+            text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
         }
-        button:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6); 
-        }
-        
-        #status { 
-            margin-top: 20px; 
-            text-align: center; 
-            font-size: 15px; 
-            color: #cbd5e1; 
-            min-height: 24px;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 13px;
-            color: #94a3b8;
-            letter-spacing: 2px;
-            font-weight: 600;
-        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6); }
+        #status { margin-top: 20px; text-align: center; font-size: 15px; color: #cbd5e1; min-height: 24px; }
+        .footer { text-align: center; margin-top: 30px; font-size: 13px; color: #94a3b8; letter-spacing: 2px; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -145,23 +78,23 @@
         </div>
         
         <div class="input-group">
-            <textarea id="mediaUrls" placeholder="Yahan apnay links paste karein (Ek line mein ek link) ya kisi Playlist ka link dalein..."></textarea>
+            <input type="text" id="mediaQuery" placeholder="Koi Name (e.g. Punjabi movie) ya Link likhein...">
         </div>
         
         <div class="input-group">
-            <input type="number" id="limitCount" class="number-input" placeholder="Kitni files download karni hain? (e.g., 100, 1000)" min="1" max="1000" value="100">
+            <input type="number" id="limitCount" placeholder="Kitni files download karni hain? (e.g., 5, 10, 50)" min="1" max="1000" value="5">
         </div>
         
         <div class="options-group">
             <label class="option-label">
-                <input type="radio" name="format" value="video" checked> 🎬 Video (MP4)
+                <input type="radio" name="format" value="video" checked> 🎬 Video
             </label>
             <label class="option-label">
-                <input type="radio" name="format" value="audio"> 🎵 Audio (MP3)
+                <input type="radio" name="format" value="audio"> 🎵 Audio
             </label>
         </div>
         
-        <button onclick="startDownload()">Start Bulk Download</button>
+        <button onclick="startDownload()">Download ZIP</button>
         <div id="status"></div>
 
         <div class="footer">
@@ -170,49 +103,31 @@
     </div>
 
     <script>
-        // Aapka Heroku backend URL
         const HEROKU_BACKEND_URL = "https://ranashaahid-928b483d7ba9.herokuapp.com";
 
-        async function startDownload() {
-            const urlsInput = document.getElementById('mediaUrls').value.trim();
+        function startDownload() {
+            const query = document.getElementById('mediaQuery').value.trim();
             const format = document.querySelector('input[name="format"]:checked').value;
             const limit = document.getElementById('limitCount').value;
             const statusDiv = document.getElementById('status');
 
-            if (!urlsInput) {
-                statusDiv.innerHTML = "❌ Meharbani karke URL(s) darj karein!";
+            if (!query) {
+                statusDiv.innerHTML = "❌ Meharbani karke koi Naam ya Link darj karein!";
                 statusDiv.style.color = "#ef4444";
                 return;
             }
 
-            const urlsArray = urlsInput.split('\n').map(url => url.trim()).filter(url => url !== "");
-
-            statusDiv.innerHTML = `⏳ Processing ${urlsArray.length > 1 ? urlsArray.length + ' links' : 'Playlist'} for ${limit} items (${format.toUpperCase()})... Please wait.`;
+            statusDiv.innerHTML = `⏳ Backend par downloading shuru ho gayi hai. ZIP file khud ba khud download ho jayegi...`;
             statusDiv.style.color = "#38bdf8";
 
-            try {
-                const response = await fetch(`${HEROKU_BACKEND_URL}/api/download`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        urls: urlsArray, 
-                        format: format,
-                        maxItems: limit
-                    })
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    statusDiv.innerHTML = "✅ Download process mukammal ho gaya!";
-                    statusDiv.style.color = "#22c55e";
-                } else {
-                    statusDiv.innerHTML = `❌ Error: ${data.error || "Koyi masla hua."}`;
-                    statusDiv.style.color = "#ef4444";
-                }
-            } catch (err) {
-                statusDiv.innerHTML = "❌ Backend Server (Heroku) se connection fail ho gaya.";
-                statusDiv.style.color = "#ef4444";
-            }
+            // Browser mein direct URL open karne se downloading trigger hogi
+            const downloadUrl = `${HEROKU_BACKEND_URL}/api/download?q=${encodeURIComponent(query)}&format=${format}&limit=${limit}`;
+            window.location.href = downloadUrl;
+            
+            setTimeout(() => {
+                statusDiv.innerHTML = "✅ ZIP taiyar ho rahi hai, meharbani karke browser check karein!";
+                statusDiv.style.color = "#22c55e";
+            }, 5000);
         }
     </script>
 </body>
