@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Rana Adan Communication - YouTube Downloader</title>
+
+  <meta
+    name="description"
+    content="Rana Adan Communication - Premium YouTube Video & MP3 Downloader"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #02040a;
+      --card: rgba(10, 15, 28, 0.78);
+      --card2: rgba(16, 23, 40, 0.82);
+      --border: rgba(255,255,255,0.10);
+      --text: #ffffff;
+      --muted: #9aa8bc;
+      --cyan: #00d9ff;
+      --blue: #267cff;
+      --purple: #7b4dff;
+      --green: #00ed8a;
+      --red: #ff4967;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(0,217,255,.16),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 90% 15%,
+          rgba(123,77,255,.17),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(0,237,138,.10),
+          transparent 30%
+        ),
+        #02040a;
+    }
+
+    /* =========================
+       Animated Background
+    ========================= */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .45;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+
+    .orb.one {
+      width: 380px;
+      height: 380px;
+      background: rgba(0,217,255,.20);
+      top: -120px;
+      left: -100px;
+    }
+
+    .orb.two {
+      width: 330px;
+      height: 330px;
+      background: rgba(123,77,255,.18);
+      top: 35%;
+      right: -120px;
+      animation-delay: 2s;
+    }
+
+    .orb.three {
+      width: 300px;
+      height: 300px;
+      background: rgba(0,237,138,.12);
+      bottom: -130px;
+      left: 35%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      from {
+        transform: translate3d(0,0,0) scale(1);
+      }
+
+      to {
+        transform: translate3d(30px,-25px,0) scale(1.12);
+      }
+    }
+
+    /* Grid */
+
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      opacity: .24;
+
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 55px 55px;
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          rgba(0,0,0,.4),
+          transparent
+        );
+    }
+
+    /* =========================
+       Layout
+    ========================= */
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    /* =========================
+       Header
+    ========================= */
+
+    header {
+      padding: 55px 0 25px;
+      text-align: center;
+    }
+
+    .brand-logo {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 24px;
+
+      font-size: 29px;
+      font-weight: 950;
+      letter-spacing: -2px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #00e5ff,
+          #277cff 50%,
+          #7b4dff
+        );
+
+      box-shadow:
+        0 0 35px rgba(0,217,255,.25),
+        0 0 80px rgba(123,77,255,.12),
+        inset 0 1px 1px rgba(255,255,255,.35);
+
+      position: relative;
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    .brand-logo::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 27px;
+      border: 1px solid rgba(0,217,255,.25);
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes logoGlow {
+      50% {
+        transform: translateY(-3px);
+        box-shadow:
+          0 0 50px rgba(0,217,255,.35),
+          0 0 90px rgba(123,77,255,.18);
+      }
+    }
+
+    @keyframes pulse {
+      0%,100% {
+        opacity: .25;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .8;
+        transform: scale(1.06);
+      }
+    }
+
+    header h1 {
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -1.8px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff,
+          #7deaff,
+          #ffffff
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    header p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: .4px;
+    }
+
+    .online-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 18px;
+      padding: 8px 14px;
+
+      border-radius: 50px;
+      border: 1px solid rgba(0,237,138,.18);
+      background: rgba(0,237,138,.06);
+
+      color: #8dffc7;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .online-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: .35;
+      }
+    }
+
+    /* =========================
+       Main Card
+    ========================= */
+
+    main {
+      padding: 30px 0 60px;
+    }
+
+    .glass {
+      background:
+        linear-gradient(
+          145deg,
+          rgba(17,25,43,.82),
+          rgba(5,9,18,.78)
+        );
+
+      border: 1px solid var(--border);
+
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+
+      box-shadow:
+        0 30px 90px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.055);
+    }
+
+    .downloader {
+      position: relative;
+      overflow: hidden;
+
+      padding: clamp(25px, 5vw, 50px);
+
+      border-radius: 30px;
+    }
+
+    .downloader::before {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      top: -300px;
+      right: -200px;
+
+      border-radius: 50%;
+
+      background: rgba(0,217,255,.06);
+      filter: blur(50px);
+
+      pointer-events: none;
+    }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .heading-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 16px;
+
+      font-size: 23px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(0,217,255,.18),
+          rgba(123,77,255,.18)
+        );
+
+      border: 1px solid rgba(0,217,255,.15);
+
+      box-shadow:
+        0 0 25px rgba(0,217,255,.10);
+    }
+
+    .heading h2 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 850;
+    }
+
+    .heading p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================
+       URL Input
+    ========================= */
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      padding: 7px;
+
+      border-radius: 17px;
+
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.09);
+
+      box-shadow:
+        inset 0 1px 8px rgba(0,0,0,.25);
+    }
+
+    .input-icon {
+      width: 43px;
+      height: 43px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background: rgba(0,217,255,.08);
+      color: var(--cyan);
+
+      font-size: 18px;
+    }
+
+    .input-row input {
+      flex: 1;
+      min-width: 0;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+      color: white;
+
+      padding: 13px 5px;
+
+      font-size: 15px;
+    }
+
+    .input-row input::placeholder {
+      color: #647185;
+    }
+
+    button {
+      border: 0;
+      outline: 0;
+      color: white;
+      font-family: inherit;
+      font-weight: 750;
+      cursor: pointer;
+
+      transition:
+        transform .2s ease,
+        filter .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .5;
+    }
+
+    .paste-btn {
+      min-height: 44px;
+      padding: 0 17px;
+
+      border-radius: 12px;
+
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.08);
+
+      color: #dce5f1;
+    }
+
+    .paste-btn:hover {
+      background: rgba(255,255,255,.11);
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       Fetch Button
+    ========================= */
+
+    .fetch-btn {
+      width: 100%;
+      min-height: 57px;
+
+      margin-top: 14px;
+
+      border-radius: 16px;
+
+      font-size: 16px;
+
+      background:
+        linear-gradient(
+          110deg,
+          #00cfff,
+          #277cff 48%,
+          #7650ff
+        );
+
+      box-shadow:
+        0 10px 35px rgba(0,140,255,.20),
+        inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    .fetch-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+
+      box-shadow:
+        0 14px 45px rgba(0,140,255,.30);
+    }
+
+    /* =========================
+       Status
+    ========================= */
+
+    .status {
+      display: none;
+
+      margin-top: 18px;
+      padding: 14px 16px;
+
+      border-radius: 13px;
+
+      text-align: center;
+      font-size: 13px;
+
+      color: var(--muted);
+      background: rgba(255,255,255,.035);
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.error {
+      color: #ff9bab;
+      border: 1px solid rgba(255,73,103,.18);
+      background: rgba(255,73,103,.07);
+    }
+
+    .status.success {
+      color: #8dffca;
+      border: 1px solid rgba(0,237,138,.18);
+      background: rgba(0,237,138,.06);
+    }
+
+    /* =========================
+       Result
+    ========================= */
+
+    .result {
+      display: none;
+
+      margin-top: 25px;
+
+      border-radius: 23px;
+
+      overflow: hidden;
+    }
+
+    .result.show {
+      display: block;
+      animation: resultIn .4s ease;
+    }
+
+    @keyframes resultIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px) scale(.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .thumbnail-wrap {
+      position: relative;
+      aspect-ratio: 16/8.2;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .thumbnail-wrap img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      display: block;
+
+      transition: transform .5s ease;
+    }
+
+    .result:hover .thumbnail-wrap img {
+      transform: scale(1.025);
+    }
+
+    .thumbnail-overlay {
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 45%,
+          rgba(0,0,0,.78)
+        );
+    }
+
+    .youtube-label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+
+      padding: 7px 11px;
+
+      border-radius: 9px;
+
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.10);
+
+      backdrop-filter: blur(10px);
+
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .result-body {
+      padding: 25px;
+    }
+
+    .video-title {
+      font-size: clamp(18px, 3vw, 23px);
+      line-height: 1.45;
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .author {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       Download Buttons
+    ========================= */
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      gap: 13px;
+      margin-top: 22px;
+    }
+
+    .download {
+      min-height: 56px;
+      border-radius: 15px;
+
+      font-size: 15px;
+    }
+
+    .mp4 {
+      background:
+        linear-gradient(
+          135deg,
+          #00cfff,
+          #1678ff
+        );
+
+      box-shadow:
+        0 10px 28px rgba(0,191,255,.14);
+    }
+
+    .mp3 {
+      background:
+        linear-gradient(
+          135deg,
+          #00ed8a,
+          #00a95c
+        );
+
+      box-shadow:
+        0 10px 28px rgba(0,230,118,.12);
+    }
+
+    .download:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.08);
+    }
+
+    .download:active {
+      transform: translateY(0);
+    }
+
+    /* =========================
+       Info
+    ========================= */
+
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      margin-top: 17px;
+      padding: 13px;
+
+      border-radius: 12px;
+
+      color: #77859a;
+      background: rgba(255,255,255,.028);
+
+      font-size: 11px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* =========================
+       Features
+    ========================= */
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 14px;
+
+      margin-top: 18px;
+    }
+
+    .feature {
+      padding: 18px;
+
+      border-radius: 17px;
+
+      background: rgba(255,255,255,.028);
+      border: 1px solid rgba(255,255,255,.06);
+
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .feature span {
+      display: block;
+      margin-top: 5px;
+      color: #718096;
+      font-size: 11px;
+    }
+
+    /* =========================
+       Footer
+    ========================= */
+
+    footer {
+      padding: 10px 0 38px;
+      text-align: center;
+    }
+
+    .footer-line {
+      width: 100%;
+      height: 1px;
+      margin-bottom: 23px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.10),
+          transparent
+        );
+    }
+
+    footer p {
+      color: #68758a;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #c8d3e2;
+
+      background:
+        linear-gradient(
+          90deg,
+          #00d9ff,
+          #8b6cff
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* =========================
+       Loader
+    ========================= */
+
+    .loader {
+      display: inline-block;
+
+      width: 17px;
+      height: 17px;
+
+      margin-right: 8px;
+
+      vertical-align: -4px;
+
+      border: 2px solid rgba(255,255,255,.25);
+      border-top-color: white;
+
+      border-radius: 50%;
+
+      animation: spin .7s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       Responsive
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      .container {
+        width: min(100% - 18px, 1120px);
+      }
+
+      header {
+        padding-top: 28px;
+      }
+
+      .brand-logo {
+        width: 70px;
+        height: 70px;
+        border-radius: 20px;
+        font-size: 24px;
+      }
+
+      main {
+        padding-top: 15px;
+      }
+
+      .downloader {
+        padding: 19px;
+        border-radius: 23px;
+      }
+
+      .input-row {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 8px;
+      }
+
+      .input-icon {
+        display: none;
+      }
+
+      .input-row input {
+        padding: 14px 10px;
+      }
+
+      .paste-btn {
+        width: 100%;
+      }
+
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .thumbnail-wrap {
+        aspect-ratio: 16/9;
+      }
+
+      .result-body {
+        padding: 19px;
+      }
+    }
+
+    @media (min-width: 900px) {
+
+      .downloader {
+        min-height: 600px;
+      }
+
+      .input-row,
+      .fetch-btn {
+        max-width: 920px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .result {
+        max-width: 920px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Animated Background -->
+  <div class="background">
+    <div class="grid-bg"></div>
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+
+  <div class="container">
+
+    <!-- =========================
+         Header
+    ========================== -->
+
+    <header>
+
+      <div class="brand-logo">
+        RA
+      </div>
+
+      <h1>
+        Rana Adan Communication
+      </h1>
+
+      <p>
+        Premium YouTube Video & MP3 Downloader
+      </p>
+
+      <div class="online-badge">
+        <span class="online-dot"></span>
+        Downloader Online
+      </div>
+
+    </header>
+
+
+    <!-- =========================
+         Main
+    ========================== -->
+
+    <main>
+
+      <section class="glass downloader">
+
+        <div class="heading">
+
+          <div class="heading-icon">
+            ⬇️
+          </div>
+
+          <h2>
+            Download Your Video
+          </h2>
+
+          <p>
+            Paste a YouTube link and get your download options instantly.
+          </p>
+
+        </div>
+
+
+        <!-- URL Input -->
+
+        <div class="input-row">
+
+          <div class="input-icon">
+            🔗
+          </div>
+
+          <input
+            id="youtubeUrl"
+            type="url"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Paste YouTube video link here..."
+          >
+
+          <button
+            type="button"
+            class="paste-btn"
+            id="pasteBtn"
+          >
+            📋 Paste
+          </button>
+
+        </div>
+
+
+        <!-- Fetch -->
+
+        <button
+          type="button"
+          class="fetch-btn"
+          id="fetchBtn"
+        >
+          🔎 &nbsp; Fetch Video
+        </button>
+
+
+        <!-- Status -->
+
+        <div
+          id="status"
+          class="status"
+        ></div>
+
+
+        <!-- =========================
+             Result
+        ========================== -->
+
+        <div
+          id="result"
+          class="result glass"
+        >
+
+          <div class="thumbnail-wrap">
+
+            <img
+              id="thumbnail"
+              src=""
+              alt="YouTube Thumbnail"
+            >
+
+            <div class="thumbnail-overlay"></div>
+
+            <div class="youtube-label">
+              ▶ YOUTUBE
+            </div>
+
+          </div>
+
+
+          <div class="result-body">
+
+            <h3
+              id="videoTitle"
+              class="video-title"
+            >
+              YouTube Video
+            </h3>
+
+            <p
+              id="author"
+              class="author"
+            >
+              👤 Unknown
+            </p>
+
+
+            <div class="buttons">
+
+              <button
+                type="button"
+                id="mp4Btn"
+                class="download mp4"
+              >
+                🎬 &nbsp; Download MP4
+              </button>
+
+              <button
+                type="button"
+                id="mp3Btn"
+                class="download mp3"
+              >
+                🎵 &nbsp; Download MP3
+              </button>
+
+            </div>
+
+
+            <div class="info">
+              🔒 Secure request &nbsp;•&nbsp;
+              ⚡ Fast processing &nbsp;•&nbsp;
+              📱 Mobile & PC compatible
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             Features
+        ========================== -->
+
+        <div class="features">
+
+          <div class="feature">
+            <div class="feature-icon">⚡</div>
+            <strong>Fast Download</strong>
+            <span>Quick media processing</span>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🎬</div>
+            <strong>MP4 Video</strong>
+            <span>Download video format</span>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🎵</div>
+            <strong>MP3 Audio</strong>
+            <span>Audio download support</span>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- =========================
+         Footer
+    ========================== -->
+
+    <footer>
+
+      <div class="footer-line"></div>
+
+      <p>
+        © 2026 Rana Adan Communication
+        <br>
+        <span style="display:inline-block;margin-top:7px;">
+          Powered By <strong>Rana Shahid</strong>
+        </span>
+      </p>
+
+    </footer>
+
+  </div>
+
+
+  <!-- =========================
+       JavaScript
+  ========================== -->
+
+  <script>
+
+    /*
+     * ============================================================
+     * API CONFIGURATION
+     * ============================================================
+     */
+
+    const API_BASE =
+      "https://backend1.tioo.eu.org/YouTube";
+
+
+    /*
+     * ============================================================
+     * ELEMENTS
+     * ============================================================
+     */
+
+    const youtubeUrl =
+      document.getElementById("youtubeUrl");
+
+    const pasteBtn =
+      document.getElementById("pasteBtn");
+
+    const fetchBtn =
+      document.getElementById("fetchBtn");
+
+    const statusBox =
+      document.getElementById("status");
+
+    const resultBox =
+      document.getElementById("result");
+
+    const thumbnail =
+      document.getElementById("thumbnail");
+
+    const videoTitle =
+      document.getElementById("videoTitle");
+
+    const author =
+      document.getElementById("author");
+
+    const mp4Btn =
+      document.getElementById("mp4Btn");
+
+    const mp3Btn =
+      document.getElementById("mp3Btn");
+
+
+    /*
+     * ============================================================
+     * STATE
+     * ============================================================
+     */
+
+    let currentVideo = null;
+
+
+    /*
+     * ============================================================
+     * STATUS
+     * ============================================================
+     */
+
+    function showStatus(message, type = "") {
+
+      statusBox.innerHTML = message;
+
+      statusBox.className = "status show";
+
+      if (type) {
+        statusBox.classList.add(type);
+      }
+
+    }
+
+
+    function hideStatus() {
+
+      statusBox.className = "status";
+      statusBox.innerHTML = "";
+
+    }
+
+
+    /*
+     * ============================================================
+     * YOUTUBE URL VALIDATION
+     * ============================================================
+     */
+
+    function isYoutubeUrl(url) {
+
+      try {
+
+        const parsed = new URL(url);
+
+        const host =
+          parsed.hostname
+            .toLowerCase()
+            .replace(/^www\./, "")
+            .replace(/^m\./, "");
+
+        return (
+          host === "youtube.com" ||
+          host === "youtu.be"
+        );
+
+      } catch {
+
+        return false;
+
+      }
+
+    }
+
+
+    /*
+     * ============================================================
+     * GET VIDEO ID
+     * ============================================================
+     */
+
+    function getVideoId(url) {
+
+      try {
+
+        const parsed = new URL(url);
+
+        if (
+          parsed.hostname
+            .toLowerCase()
+            .includes("youtu.be")
+        ) {
+
+          return parsed.pathname
+            .substring(1)
+            .split("/")[0];
+
+        }
+
+        return parsed.searchParams.get("v");
+
+      } catch {
+
+        return null;
+
+      }
+
+    }
+
+
+    /*
+     * ============================================================
+     * FIND MP3
+     * ============================================================
+     */
+
+    function findMp3(data) {
+
+      return (
+        data.mp3 ||
+        data.audio ||
+        data.mp3_url ||
+        data.audio_url ||
+        data.download?.mp3 ||
+        data.download?.audio ||
+        data.links?.mp3 ||
+        data.links?.audio ||
+        null
+      );
+
+    }
+
+
+    /*
+     * ============================================================
+     * FIND MP4
+     * ============================================================
+     */
+
+    function findMp4(data) {
+
+      return (
+        data.mp4 ||
+        data.video ||
+        data.mp4_url ||
+        data.video_url ||
+        data.download?.mp4 ||
+        data.download?.video ||
+        data.links?.mp4 ||
+        data.links?.video ||
+        null
+      );
+
+    }
+
+
+    /*
+     * ============================================================
+     * DOWNLOAD
+     * ============================================================
+     */
+
+    function openDownload(url, filename = "") {
+
+      if (!url) {
+
+        showStatus(
+          "❌ Download link is not available.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      const link =
+        document.createElement("a");
+
+      link.href = url;
+
+      if (filename) {
+        link.download = filename;
+      }
+
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+    }
+
+
+    /*
+     * ============================================================
+     * PASTE
+     * ============================================================
+     */
+
+    pasteBtn.addEventListener(
+      "click",
+      async () => {
+
+        try {
+
+          const text =
+            await navigator.clipboard.readText();
+
+          if (!text) {
+
+            showStatus(
+              "⚠️ Clipboard is empty.",
+              "error"
+            );
+
+            return;
+
+          }
+
+          youtubeUrl.value =
+            text.trim();
+
+          showStatus(
+            "✅ YouTube link pasted successfully.",
+            "success"
+          );
+
+        } catch {
+
+          showStatus(
+            "❌ Clipboard permission denied. Please paste the link manually.",
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+    /*
+     * ============================================================
+     * FETCH BUTTON
+     * ============================================================
+     */
+
+    fetchBtn.addEventListener(
+      "click",
+      fetchVideo
+    );
+
+
+    /*
+     * ENTER KEY
+     * ============================================================
+     */
+
+    youtubeUrl.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Enter") {
+          fetchVideo();
+        }
+
+      }
+    );
+
+
+    /*
+     * ============================================================
+     * FETCH VIDEO
+     * ============================================================
+     */
+
+    async function fetchVideo() {
+
+      const url =
+        youtubeUrl.value.trim();
+
+
+      if (!url) {
+
+        showStatus(
+          "⚠️ Please enter a YouTube URL.",
+          "error"
+        );
+
+        youtubeUrl.focus();
+
+        return;
+
+      }
+
+
+      if (!isYoutubeUrl(url)) {
+
+        showStatus(
+          "❌ Please enter a valid YouTube URL.",
+          "error"
+        );
+
+        youtubeUrl.focus();
+
+        return;
+
+      }
+
+
+      /* Reset */
+
+      resultBox.classList.remove("show");
+
+      currentVideo = null;
+
+      mp4Btn.disabled = true;
+      mp3Btn.disabled = true;
+
+      fetchBtn.disabled = true;
+
+      fetchBtn.innerHTML =
+        '<span class="loader"></span> Fetching Video...';
+
+
+      showStatus(
+        "⏳ Connecting to downloader server..."
+      );
+
+
+      try {
+
+        const apiUrl =
+          API_BASE +
+          "?url=" +
+          encodeURIComponent(url);
+
+
+        const response =
+          await fetch(apiUrl, {
+
+            method: "GET",
+
+            headers: {
+              "Accept": "application/json"
+            }
+
+          });
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Server returned HTTP " +
+            response.status
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        console.log(
+          "YouTube API Response:",
+          data
+        );
+
+
+        if (
+          !data ||
+          data.status === false
+        ) {
+
+          throw new Error(
+            data.message ||
+            data.error ||
+            "Could not extract this YouTube video."
+          );
+
+        }
+
+
+        /*
+         * Media links
+         */
+
+        const mp4 =
+          findMp4(data);
+
+        const mp3 =
+          findMp3(data);
+
+
+        if (!mp4) {
+
+          throw new Error(
+            "API did not return an MP4 download link."
+          );
+
+        }
+
+
+        /*
+         * Metadata
+         */
+
+        const title =
+          data.title ||
+          data.name ||
+          data.video?.title ||
+          "YouTube Video";
+
+
+        const channel =
+          data.author ||
+          data.channel ||
+          data.uploader ||
+          data.creator ||
+          "Unknown";
+
+
+        const image =
+          data.thumbnail ||
+          data.thumb ||
+          data.image ||
+          data.video?.thumbnail ||
+          "";
+
+
+        currentVideo = {
+
+          url,
+          mp4,
+          mp3,
+          title,
+          channel,
+          thumbnail: image
+
+        };
+
+
+        /*
+         * Thumbnail
+         */
+
+        if (image) {
+
+          thumbnail.src = image;
+          thumbnail.style.display = "block";
+
+        } else {
+
+          const videoId =
+            getVideoId(url);
+
+          if (videoId) {
+
+            thumbnail.src =
+              "https://i.ytimg.com/vi/" +
+              encodeURIComponent(videoId) +
+              "/hqdefault.jpg";
+
+            thumbnail.style.display =
+              "block";
+
+          } else {
+
+            thumbnail.style.display =
+              "none";
+
+          }
+
+        }
+
+
+        /*
+         * Title
+         */
+
+        videoTitle.textContent =
+          title;
+
+
+        /*
+         * Author
+         */
+
+        author.textContent =
+          "👤 " + channel;
+
+
+        /*
+         * MP4
+         */
+
+        mp4Btn.disabled = false;
+
+        mp4Btn.textContent =
+          "🎬  Download MP4";
+
+
+        /*
+         * MP3
+         */
+
+        if (mp3) {
+
+          mp3Btn.disabled = false;
+
+          mp3Btn.textContent =
+            "🎵  Download MP3";
+
+        } else {
+
+          mp3Btn.disabled = true;
+
+          mp3Btn.textContent =
+            "🎵  MP3 Not Available";
+
+        }
+
+
+        /*
+         * Show result
+         */
+
+        resultBox.classList.add("show");
+
+
+        showStatus(
+          "✅ Video loaded successfully. Choose your format below.",
+          "success"
+        );
+
+
+        /*
+         * Scroll on small screens
+         */
+
+        setTimeout(() => {
+
+          resultBox.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+          });
+
+        }, 100);
+
+
+      } catch (error) {
+
+        console.error(
+          "Downloader Error:",
+          error
+        );
+
+
+        resultBox.classList.remove("show");
+
+
+        showStatus(
+          "❌ " +
+          (
+            error.message ||
+            "Failed to fetch video."
+          ),
+          "error"
+        );
+
+      } finally {
+
+        fetchBtn.disabled = false;
+
+        fetchBtn.innerHTML =
+          "🔎 &nbsp; Fetch Video";
+
+      }
+
+    }
+
+
+    /*
+     * ============================================================
+     * MP4
+     * ============================================================
+     */
+
+    mp4Btn.addEventListener(
+      "click",
+      () => {
+
+        if (!currentVideo?.mp4) {
+
+          showStatus(
+            "❌ MP4 link is not available.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        openDownload(
+          currentVideo.mp4,
+          sanitizeFilename(
+            currentVideo.title
+          ) + ".mp4"
+        );
+
+      }
+    );
+
+
+    /*
+     * ============================================================
+     * MP3
+     * ============================================================
+     */
+
+    mp3Btn.addEventListener(
+      "click",
+      () => {
+
+        if (!currentVideo?.mp3) {
+
+          showStatus(
+            "⚠️ MP3 is not available from this API response.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        openDownload(
+          currentVideo.mp3,
+          sanitizeFilename(
+            currentVideo.title
+          ) + ".mp3"
+        );
+
+      }
+    );
+
+
+    /*
+     * ============================================================
+     * FILENAME CLEANER
+     * ============================================================
+     */
+
+    function sanitizeFilename(name) {
+
+      return String(name)
+
+        .replace(
+          /[<>:"/\\|?*\x00-\x1F]/g,
+          ""
+        )
+
+        .replace(
+          /\s+/g,
+          " "
+        )
+
+        .trim()
+
+        .substring(
+          0,
+          100
+        )
+
+        || "youtube-video";
+
+    }
+
+
+    /*
+     * ============================================================
+     * INITIAL STATE
+     * ============================================================
+     */
+
+    mp4Btn.disabled = true;
+    mp3Btn.disabled = true;
+
+  </script>
+
+</body>
+</html>
